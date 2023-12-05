@@ -1,0 +1,52 @@
+<div class="login-container">
+  <div class="login-form-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="input-container">
+        <input
+          type="text"
+          placeholder="user@email.com"
+          formControlName="email"
+        />
+        <div
+          class="error-msg"
+          *ngIf="
+            this.loginForm.get('email')?.invalid &&
+            this.loginForm.get('email')?.dirty &&
+            this.loginForm.value.email.length > 5
+          "
+        >
+          Invalid Email Id
+        </div>
+      </div>
+      <div class="input-container">
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <div
+          class="error-msg"
+          *ngIf="
+            this.loginForm.get('password')?.invalid &&
+            this.loginForm.get('password')?.dirty &&
+            this.loginForm.value.password.length >= 5
+          "
+        >
+          Password should have a minimum length of 6 characters
+        </div>
+      </div>
+
+      <div class="input-container">
+        <button
+          type="submit"
+          [ngClass]="{ ngdisabled: !this.loginForm.valid }"
+          [disabled]="!this.loginForm.valid"
+        >
+          Login
+        </button>
+        <!-- <button type="submit">Login</button> -->
+        <div>Don't have an account <a routerLink="/signUp">Login</a> here</div>
+      </div>
+    </form>
+  </div>
+</div>
