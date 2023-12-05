@@ -27,11 +27,18 @@ export class AuthService {
   }
 
   onSignUp(signUpData: signUpType) {
-    console.log('success');
     return this.http.post(`${this.baseUrl}/signUp`, signUpData);
   }
 
-  onGetAllUsers(){
-    return this.http.get(`${this.baseUrl}/getAllUser`)
+  onGetAllUsers() {
+    return this.http.get(`${this.baseUrl}/getAllUser`);
+  }
+
+  onUpdateUser(id:string,updateData: signUpType) {
+    return this.http.patch(`${this.baseUrl}/updateUser/${id}`, updateData);
+  }
+
+  onDeleteUser(id: string) {
+    return this.http.delete(`${this.baseUrl}/deleteUser/${id}`);
   }
 }

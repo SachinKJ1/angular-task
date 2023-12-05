@@ -13,6 +13,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { NotificationComponent } from './notification/notification.component';
+import { MatIconModule } from '@angular/material/icon';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +26,8 @@ import { NotificationComponent } from './notification/notification.component';
     SpinnerComponent,
     AdminHomeComponent,
     NotificationComponent,
+    CreateUserComponent,
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,7 @@ import { NotificationComponent } from './notification/notification.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

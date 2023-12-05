@@ -53,23 +53,22 @@ export class SignUpComponent {
         'Password and Password Confirmation do not match'
       );
     }
-  
-    console.log(this.signForm.value);
     this.localService.toSpin();
-    this.router.navigate(['/home']);
-    return this.localService.toNotify('green', 'Successfully signed In')
 
-   
-
-
-    /* this.auth.onSignUp(this.signForm.value).subscribe({
+    // console.log(this.signForm.value);
+    this.auth.onSignUp(this.signForm.value).subscribe({
       next: (res: any) => {
-        console.log(res);
+        // console.log(res);
+        this.router.navigate(['/home']);
+        this.localService.toStopSpin();
+        this.localService.toNotify('green', 'Successfully Signed In');
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
+        this.localService.toStopSpin();
+        if(err.error.error.code == 11000) return this.localService.toNotify('red', 'Email Already Exists');
+        this.localService.toNotify('red', 'Something went wrong');
       },
-    }); */
-    console.log(this.signForm);
+    });
   }
 }

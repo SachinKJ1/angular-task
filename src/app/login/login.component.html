@@ -1,5 +1,6 @@
 <div class="login-container">
   <div class="login-form-container">
+    <h1 class="heading">Login</h1>
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <div class="input-container">
         <input
@@ -39,8 +40,7 @@
       <div class="input-container">
         <button
           type="submit"
-          [ngClass]="{ ngdisabled: !this.loginForm.valid }"
-          [disabled]="!this.loginForm.valid"
+           
         >
           Login
         </button>

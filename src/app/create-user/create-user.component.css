@@ -1,9 +1,9 @@
-.login-container {
+.create-new-user-container {
   height: 90vh;
   position: relative;
   background-color: azure;
 }
-.login-form-container {
+.create-new-user-form-container {
   width: 300px;
   position: absolute;
   top: 50%;
@@ -47,7 +47,6 @@ input {
 }
 
 input::placeholder {
- 
   font-size: large;
 }
 
@@ -64,8 +63,4 @@ input::placeholder {
 }
 .input-container button:active {
   box-shadow: none !important;
-}
-
-.ngdisabled {
-  background-color: rgba(53, 53, 53, 0.5);
 }

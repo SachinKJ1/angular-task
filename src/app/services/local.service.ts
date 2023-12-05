@@ -21,10 +21,14 @@ export class LocalService {
     }, 2000);
   }
 
-  toSpin(){
+  toSpin() {
     this.spinnig.next(true);
     setTimeout(() => {
       this.spinnig.next(false);
     }, 2000);
+  }
+
+  toStopSpin() {
+    this.spinnig.next(false);
   }
 }
