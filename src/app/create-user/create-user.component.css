@@ -27,6 +27,9 @@
 .input-container {
   height: 80px;
 }
+.select-container {
+  font-size: large;
+}
 .error-msg {
   padding: 5px;
   color: red;
@@ -44,6 +47,9 @@ input {
   padding: 5px;
   width: 100%;
   padding-top: 10px;
+}
+.select-tag {
+  padding: 5px;
 }
 
 input::placeholder {

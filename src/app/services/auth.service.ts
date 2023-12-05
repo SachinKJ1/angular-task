@@ -34,7 +34,15 @@ export class AuthService {
     return this.http.get(`${this.baseUrl}/getAllUser`);
   }
 
-  onUpdateUser(id:string,updateData: signUpType) {
+  onAddUser(userData: signUpType) {
+    return this.http.post(`${this.baseUrl}/createUser`, userData);
+  }
+
+  onGetOneUser(id: string) {
+    return this.http.get(`${this.baseUrl}/getOneUser/${id}`);
+  }
+
+  onUpdateUser(id: string, updateData: signUpType) {
     return this.http.patch(`${this.baseUrl}/updateUser/${id}`, updateData);
   }
 

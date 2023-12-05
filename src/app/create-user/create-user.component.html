@@ -26,7 +26,7 @@
           *ngIf="
             this.createUserForm.get('username')?.invalid &&
             this.createUserForm.get('username')?.dirty &&
-            this.createUserForm.value.email.length > 2
+            this.createUserForm.value.username.length > 2
           "
         >
           Username must have atleast 4 characters
@@ -60,11 +60,22 @@
           *ngIf="
             this.createUserForm.get('passwordConfirm')?.invalid &&
             this.createUserForm.get('passwordConfirm')?.dirty &&
-            this.createUserForm.value.password.length >= 5
+            this.createUserForm.value.passwordConfirm.length >= 5
           "
         >
           Password confirm should have atleast 6 characters
         </div>
+      </div>
+
+      <div class="input-container">
+       <div class="select-container">
+          <label for="role">Role of new User</label>&nbsp;&nbsp;&nbsp;
+          <select class="select-tag" name="role" id="role" formControlName="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+       </div>
+        
       </div>
 
       <div class="input-container">

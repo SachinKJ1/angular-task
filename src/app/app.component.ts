@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { LocalService } from './services/local.service';
+import { ChangeDetectionStrategy } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   formMsg = '';
   notifyColor = ''
 
-  constructor(private localService: LocalService) {}
+  constructor(private localService: LocalService, private cdref: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.localService.spinnig.subscribe({
@@ -32,5 +33,10 @@ export class AppComponent {
     this.localService.notificationColor.subscribe({
       next: (res: string) => (this.notifyColor = res),
     });
+  }
+
+  ngAfterViewChecked(){
+    // to detect changes after change detection in this parent component was finished
+    this.cdref.detectChanges();
   }
 }
