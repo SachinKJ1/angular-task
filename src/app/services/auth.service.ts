@@ -30,8 +30,8 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/signUp`, signUpData);
   }
 
-  onGetAllUsers(query:string = '') {
-    return this.http.get(`${this.baseUrl}/getAllUser${query}`);
+  onGetAllUsers(query:string = '',page='') {
+    return this.http.get(`${this.baseUrl}/getAllUser${query}${page}`);
   }
 
   onAddUser(userData: signUpType) {

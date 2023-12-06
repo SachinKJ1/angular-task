@@ -23,6 +23,7 @@
   </div>
   <hr />
   <div class="users-collection-container">
+    <h1 class="heading">User Details</h1>
     <table class="users-table">
       <thead>
         <tr class="table-head-row">
@@ -75,7 +76,17 @@
           </button>
         </li> -->
         <li *ngFor="let page of pageArr; let i = index">
-          <button class="paginate-btn" *ngIf="curPage !== page + 1">Page {{ page + 1 }}</button>
+          <button
+            class="paginate-btn"
+            *ngIf="
+              curPage !== page + 1  
+               
+            "
+            (click)="paginate($event)"
+            [attr.data-page]="page + 1"
+          >
+            Page {{ page + 1 }}
+          </button>
         </li>
       </ul>
     </nav>

@@ -14,6 +14,7 @@ export class AdminHomeComponent {
   minPage = 1;
   maxPage!: number;
   pageArr: any = [];
+  limitPerPage = 10;
   constructor(
     private authService: AuthService,
     private localService: LocalService
@@ -23,23 +24,27 @@ export class AdminHomeComponent {
     this.getAllUsers();
   }
 
-  getAllUsers(query: string = '') {
-    this.authService.onGetAllUsers(query).subscribe({
+  getAllUsers(query: string = '', page: string = '') {
+    this.authService.onGetAllUsers(query, page).subscribe({
       next: (res: any) => {
         this.users = res.users;
-        this.maxPage = Math.floor(res.count / 10) + 1;
-        console.log(res);
-        const countArr =  Array.from({ length: res.count }, (v, i) => i);
+        this.maxPage = Math.floor(res.count / this.limitPerPage) + 1;
+        // console.log(res);
+        const countArr = Array.from({ length: res.count }, (v, i) => i);
+        this.pageArr = [];
         countArr.forEach((val: any, index: number) => {
-          if(index === 0) this.pageArr.push(0);
-          if ((index + 1) % 2 === 0) {
-            this.pageArr.push((index + 1) / 2);
+          if (index === 0) this.pageArr.push(0);
+          if ((index + 1) % this.limitPerPage === 0) {
+            this.pageArr.push((index + 1) / this.limitPerPage);
           }
         });
-        console.log(countArr);
-        console.log(this.pageArr);
+        if (res.count % this.limitPerPage === 0) this.pageArr.pop();
+        // console.log(countArr);
+        // console.log(this.pageArr);
       },
-      error: (err: any) => {},
+      error: (err: any) => {
+        console.error(err);
+      },
     });
   }
 
@@ -62,8 +67,17 @@ export class AdminHomeComponent {
     if (!this.searchQuery) return;
     this.localService.toSpin();
     let query = `?username[$regex]=${this.searchQuery}&username[$options]=i`;
-    console.log(this.searchQuery);
     this.getAllUsers(query);
     this.localService.toStopSpin();
+  }
+
+  paginate(event: any) {
+    const { page } = event.target.dataset;
+    let query = `?username[$regex]=${this.searchQuery}&username[$options]=i`;
+    console.log(this.curPage);
+    this.curPage = Number(page);
+    console.log(this.curPage);
+
+    this.getAllUsers(query, `&page=${page}`);
   }
 }

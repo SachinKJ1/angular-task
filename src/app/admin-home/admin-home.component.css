@@ -1,7 +1,10 @@
 .users-collection-container {
   min-height: 100vh;
 }
-
+.heading{
+  text-align: center;
+  margin: 50px;
+}
 .home-add-search-container {
   display: flex;
   justify-content: space-between;
@@ -90,12 +93,16 @@ tr:nth-child(even) {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 30px;
 }
 
 .pagination-container nav ul {
   list-style: none;
   display: flex !important;
   gap: 10px;
+}
+.pagination-container nav ul li:empty {
+  display: none;
 }
 
 .paginate-btn {
