@@ -1,3 +1,7 @@
+.users-collection-container {
+  min-height: 100vh;
+}
+
 .home-add-search-container {
   display: flex;
   justify-content: space-between;
@@ -42,12 +46,11 @@
 }
 .users-table {
   width: 100%;
-  
 }
-thead{
-    background-color: #04AA6D;
-    color: white;
-    letter-spacing: 1px;
+thead {
+  background-color: #04aa6d;
+  color: white;
+  letter-spacing: 1px;
 }
 th {
   font-weight: bolder;
@@ -59,18 +62,42 @@ td {
   text-align: center;
   border-bottom: 1px solid;
 }
-tr:nth-child(even) {background-color: #f2f2f2;}
-
-.user-btns{
-    padding: 5px;
-    border-radius: 5px;
-    font-size: medium;
+tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-.btn-yellow{
-    background-color: rgb(242, 242, 126);
+.user-btns {
+  padding: 5px;
+  border-radius: 5px;
+  font-size: medium;
 }
-.btn-red{
-    background-color: rgb(250, 96, 96);
-    color: white;
+
+.btn-yellow {
+  background-color: rgb(242, 242, 126);
+}
+.btn-red {
+  background-color: rgb(250, 96, 96);
+  color: white;
+}
+.error-msg {
+  color: red;
+  text-align: center;
+  font-size: large;
+  padding: 25px;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-container nav ul {
+  list-style: none;
+  display: flex !important;
+  gap: 10px;
+}
+
+.paginate-btn {
+  padding: 5px;
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalService } from '../services/local.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class UpdateUserComponent {
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
-    private localService: LocalService
+    private localService: LocalService,
+    private router: Router
   ) {}
   ngOnInit() {
     this.localService.toSpin();
@@ -65,13 +66,22 @@ export class UpdateUserComponent {
   }
 
   onUpdateNewUser() {
+    this.localService.toSpin();
     const { id } = this.route.snapshot.params;
     this.authService.onUpdateUser(id, this.updateUserForm.value).subscribe({
       next: (res: any) => {
-        console.log(res);
+        this.localService.toStopSpin();
+        this.localService.toNotify('green', 'User Successfully Updated');
+        this.router.navigateByUrl('/home');
       },
       error: (err: any) => {
-        console.log(err);
+        this.localService.toStopSpin();
+        if (err.error.error === 'Incorrect password')
+          return this.localService.toNotify('red', 'Incorrect password');
+        if (err.error.error.code == 11000)
+          return this.localService.toNotify('red', 'Email Already Exists');
+
+        this.localService.toNotify('red', 'Something went wrong');
       },
     });
   }

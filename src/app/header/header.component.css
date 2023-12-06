@@ -15,3 +15,10 @@
   list-style: none;
   font-size: large;
 }
+.nav-links{
+  text-decoration: none;
+  color: black;
+}
+.active{
+  font-size: large;
+}

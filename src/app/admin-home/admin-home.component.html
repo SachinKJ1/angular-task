@@ -7,8 +7,14 @@
     </div>
 
     <div>
-      <form class="search-form">
-        <input class="search-input" type="text" placeholder="Search Users" />
+      <form class="search-form" (ngSubmit)="onSearch()">
+        <input
+          [(ngModel)]="searchQuery"
+          name="searchQuery"
+          class="search-input"
+          type="text"
+          placeholder="Search Users"
+        />
         <button class="search-button">
           <mat-icon class="align-icon" fontIcon="search"></mat-icon>
         </button>
@@ -28,25 +34,50 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            <button
-              class="user-btns btn-yellow"
-              [routerLink]="'/update-user/' + user._id"
-            >
-              Update
-            </button>
-          </td>
-          <td>
-            <button class="user-btns btn-red" (click)="onDeleteUser(user._id)">
-              Delete
-            </button>
-          </td>
-        </tr>
+        <ng-container *ngIf="this.users?.length !== 0">
+          <tr *ngFor="let user of users; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button
+                class="user-btns btn-yellow"
+                [routerLink]="'/update-user/' + user._id"
+              >
+                Update
+              </button>
+            </td>
+            <td>
+              <button
+                class="user-btns btn-red"
+                (click)="onDeleteUser(user._id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
+    <ng-container *ngIf="this.users?.length === 0">
+      <div class="error-msg" *ngIf="this.searchQuery">No Users found</div>
+      <div class="error-msg" *ngIf="!this.searchQuery">
+        Something Went Wrong
+      </div>
+    </ng-container>
+  </div>
+  <div class="pagination-container">
+    <nav *ngIf="this.pageArr.length">
+      <ul>
+        <!-- <li>
+          <button [attr.data-page]="curPage - 1" *ngIf="curPage !== 1">
+            page {{ curPage - 1 }}
+          </button>
+        </li> -->
+        <li *ngFor="let page of pageArr; let i = index">
+          <button class="paginate-btn" *ngIf="curPage !== page + 1">Page {{ page + 1 }}</button>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
