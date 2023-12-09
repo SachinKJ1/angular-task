@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
@@ -16,6 +16,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
+import { AttachTokenInterceptor } from './interceptor/attach-token.interceptor';
+import { AuthGuard } from './guards/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +30,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     NotificationComponent,
     CreateUserComponent,
     UpdateUserComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,14 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     MatProgressSpinnerModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AttachTokenInterceptor,
+      multi: true,
+    },
+    AuthGuard
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

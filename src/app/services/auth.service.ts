@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface loginType {
   email?: string;
@@ -19,8 +21,9 @@ export interface signUpType {
 })
 export class AuthService {
   baseUrl = 'http://localhost:4000/authenticate';
+  isLoggedIn = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onLogin(loginData: loginType) {
     return this.http.post(`${this.baseUrl}/login`, loginData);
@@ -30,7 +33,7 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/signUp`, signUpData);
   }
 
-  onGetAllUsers(query:string = '',page='') {
+  onGetAllUsers(query: string = '', page = '') {
     return this.http.get(`${this.baseUrl}/getAllUser${query}${page}`);
   }
 
@@ -48,5 +51,26 @@ export class AuthService {
 
   onDeleteUser(id: string) {
     return this.http.delete(`${this.baseUrl}/deleteUser/${id}`);
+  }
+
+  getAuthorizationToken() {
+    return localStorage.getItem('token');
+  }
+
+  setItemInLocalStorage(token: string) {
+    localStorage.setItem('token', token);
+    this.isLoggedIn.next(true);
+  }
+
+  checkTokenAvailability() {
+    const token = localStorage.getItem('token');
+    if (token) this.isLoggedIn.next(true);
+  }
+
+  signOutUser() {
+    localStorage.removeItem('token');
+    this.isLoggedIn.next(false);
+    this.router.navigateByUrl('/login');
+    // location.reload();
   }
 }

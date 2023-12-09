@@ -44,18 +44,26 @@ export class LoginComponent {
 
     this.auth.onLogin(this.loginForm.value).subscribe({
       next: (res: any) => {
-        console.log(res);
+        // console.log(res);
+        this.auth.setItemInLocalStorage(res.token);
+
         this.router.navigate(['/home']);
         this.localService.toStopSpin();
         this.localService.toNotify('green', 'Successfully Logged In');
       },
       error: (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.localService.toStopSpin();
 
         if (err.status == 401)
           return this.localService.toNotify('red', 'Invalid email or password');
-        
+
+        if (err.status == 403)
+          return this.localService.toNotify(
+            'red',
+            'You are not authorized to access this page'
+          );
+
         this.localService.toNotify('red', 'Something went wrong');
       },
     });

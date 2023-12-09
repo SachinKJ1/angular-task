@@ -44,6 +44,7 @@ export class AdminHomeComponent {
       },
       error: (err: any) => {
         console.error(err);
+        this.localService.toNotify('red', 'Something went wrong');
       },
     });
   }
@@ -74,9 +75,9 @@ export class AdminHomeComponent {
   paginate(event: any) {
     const { page } = event.target.dataset;
     let query = `?username[$regex]=${this.searchQuery}&username[$options]=i`;
-    console.log(this.curPage);
+    // console.log(this.curPage);
     this.curPage = Number(page);
-    console.log(this.curPage);
+    // console.log(this.curPage);
 
     this.getAllUsers(query, `&page=${page}`);
   }

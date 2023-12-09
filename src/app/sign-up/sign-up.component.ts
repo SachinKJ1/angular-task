@@ -59,6 +59,7 @@ export class SignUpComponent {
     this.auth.onSignUp(this.signForm.value).subscribe({
       next: (res: any) => {
         // console.log(res);
+        this.auth.setItemInLocalStorage(res.token);
         this.router.navigate(['/home']);
         this.localService.toStopSpin();
         this.localService.toNotify('green', 'Successfully Signed In');
@@ -66,7 +67,8 @@ export class SignUpComponent {
       error: (err) => {
         // console.log(err);
         this.localService.toStopSpin();
-        if(err.error.error.code == 11000) return this.localService.toNotify('red', 'Email Already Exists');
+        if (err.error.error.code == 11000)
+          return this.localService.toNotify('red', 'Email Already Exists');
         this.localService.toNotify('red', 'Something went wrong');
       },
     });

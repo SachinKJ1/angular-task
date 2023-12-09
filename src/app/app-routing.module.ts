@@ -5,6 +5,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
+import canActivateTeam from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,14 +23,18 @@ const routes: Routes = [
   {
     path: 'home',
     component: AdminHomeComponent,
+    canActivate: [canActivateTeam],
   },
   {
     path: 'create-user',
     component: CreateUserComponent,
-  },{
+    canActivate: [canActivateTeam],
+  },
+  {
     path: 'update-user/:id',
-    component: UpdateUserComponent
-  }
+    component: UpdateUserComponent,
+    canActivate: [canActivateTeam],
+  },
 ];
 
 @NgModule({
